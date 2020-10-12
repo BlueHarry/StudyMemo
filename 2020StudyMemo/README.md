@@ -1,3 +1,2 @@
-#  2020StudyMemo 目录，是2020年的编程学习笔记
-
-一般用Macbook上的VC记录下来后，上载到GitHub上保存下来。
+# StudyNotes2017  
+目前主要是Linux、Python、Mac等使用过程中遇到的问题，实践后记录下来，以后查询复习方便。
