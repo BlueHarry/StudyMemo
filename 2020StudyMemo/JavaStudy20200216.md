@@ -22,3 +22,7 @@
 1. 属性成员，通用的做法是需要封装处理的，通过 private 关键字对属性进行封装。比如，` private String name = "aFei";`
 1. private。Java开发规范中，对于private 属性要求通过 setter 和 getter 方法访问。比如，` public void setName(String name);`
 1. 构造方法，在对象实例化时被自动调用，通常用来批量初始化属性成员。而不是通过大量调用 setter 方法来初始化 private 属性成员。
+
+## 其他
+- 内存分析
+- 封装
