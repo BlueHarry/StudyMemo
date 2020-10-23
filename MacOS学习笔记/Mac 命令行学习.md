@@ -86,7 +86,7 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
 
 
-## ~/.zprofile 环境参数配置文件
+## ~/.zprofile 环境变量配置文件
 
 **知识点：** ～/ 表示用户home目录，这个常识要记住。用 cd 或者 cd～命令进入。 
 
@@ -151,4 +151,119 @@ $ chsh -s /bin/bash
 
 然后重新启动终端，即可生效。
 ```
+
+
+
+## ln 命令
+
+
+分hard link 和 symbolic link 两种
+
+1、Symbolic Link 更常用，所谓的“符号链接”
+
+sudo ln -s 源文件 目标文件 
+
+-s：代表 symbolic
+
+一般需要较高的权限,  
+所以，一般用 sudo
+
+举例：
+
+sudo ln -s /lLibrary/frameworks/JavaVM/java （此处空格）/usr/bin/java
+
+就是让   /usr/bin/java  指向  /lLibrary/frameworks/JavaVM/java，   
+成为一种类似的快捷链接
+
+
+删除链接
+
+
+rm /usr/bin/java
+
+ /usr/bin/java这个文件就不存在了
+
+实体文件 /lLibrary/frameworks/JavaVM/java 依然存在，  
+只是指向它的快捷链接 /usr/bin/java不存在了。
+
+
+2、Hard Link，所谓的“硬链接”
+
+指向同一个 inode 的另一个文件名。  
+甚至可能有2个以上的文件名，  
+都指向同一个inode下的实体文件，  
+都宣称它能代表那个实体文。
+
+既然用得不多，就不详细说了。
+
+sudo ln  源文件 目标文件
+
+注意：没有－s 选项
+
+## find Whereis 和 locate
+
+用了很多年find，  
+似乎不习惯用 Whereis 或者 locate，    
+那是比较Low的习惯
+
+
+**Whereis python**
+
+查找Shell命令或可执行的程序，  
+比如，/usr/bin/python，   
+你可以通过 $ whereis python找到。 
+
+通常只有一条查询结果输出
+
+
+**locate python**
+
+查找所有包含有 “python” 的目录和文件，  
+通常会输出N多条结果。  
+自己试试吧
+
+要注意第一次使用locate，  
+会提示要不要创建查询数据库。  
+那创建好了，  
+那点磁盘空间也算不了什么，  
+咱们家不是富裕吗？
+
+
+
+## Mac OS /Linux 命令行提示符设置
+
+Linux的命令行提示符的模样是由 PS1变量决定的，所以要想自己定制一个酷炫的命令行提示符，需要修改启动配置文件。
+
+是在哪个配置文件中呢？这要看你当前使用哪个Shell。如果你是Mac OS环境，缺省启动 zsh，而Linux环境会缺省启动 bash。
+
+在zsh环境下，启动配置文件是 /etc/zshrc
+
+在bash环境下，启动配置文件是 /etc/bashrc 
+
+在这两个配置文件中，通常会有类似这么一行，用于设置 PS1环境变量。
+
+```bash
+# Default prompt
+PS1='\h:\W \u\$ '
+```
+
+su到root账号，用vim编辑修改这一行就可以了。
+
+应该尽量修改 ～/.zprofile
+
+
+
+
+
+## chsh -s 命令切换Shell
+
+此命令用于切换你正在使用的 Shell。一般Mac OS 缺省的Shell是 zsh，也就是 Z Shell，这是一种功能比较强大的新型Shell，而Linux缺省使用的Shell一般都是 bash。 
+
+对于大多数的用户和程序员来说，两种Shell没有什么差别，所以没有必要去chsh改变它，以免带来意想不到的奇怪问题。如果确实需要切换Shell，可以用下面这个命令：
+
+```zsh
+chsh -s /bin/bash
+```
+
+需要当前Shell会话连接，重新登录进入才能生效。比如，如果你是在使用Mac OS的终端仿真器，需要退出终端，重新登录才能切换到新的Shell会话环境下。
 
