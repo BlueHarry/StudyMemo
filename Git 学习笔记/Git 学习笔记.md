@@ -20,11 +20,12 @@
 
 
 
-## Git常用命令
 
 
 
-### git init 和 git clone
+## 创建代码仓
+
+### 1.  创建代码仓 git init 和 git clone
 初始化创建 Local Repository，有两种方法：
 1. git init 将一个本地文件目录初始化为一个版本仓库。初始化以后这个目录的所有文件就开始受到git的版本控制。说得更通俗一点，就是git将会监控和记录下这个目录下所有文件的改变历史。
 
@@ -35,11 +36,36 @@
 
 所谓的版本仓库（Repository），其实就是在相应的文件目录里多了一个 .git 文件，存有git repository的管理信息。因此要想把这个版本仓库文件目录变成普通的文件目录，只要用 “rm -rf .git”命令删除这个 .git文件就可以了。可以再用“git show”命令确认一下这个目录还是不是一个git版本仓库。
 
+### 2.  查看代码仓 git show
+
+
+
+### 3.  删除代码仓 rm  -rf 
+
 ```shell
 zsh.$ rm -rf .git
 zsh.$ git show
 fatal: not a git repository (or any of the parent directories): .git
 ```
 
-### git pull 和 git push
+
+
+## 提交代码到仓库
+
+###  1.  git status
+查看工作区（working tree）代码与入库缓存区（stage）的差别
+
+### 2.  git add
+
+把工作区的变化（changes）提交到stage缓存区
+
+### 3. git commit -m '版本注释'
+
+把缓存区的变化提交到本地的代码仓
+
+### 4. git push origin master
+
+把本地代码仓的变化推送到远端代码仓（比如，github repo）
+
+
 
