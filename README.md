@@ -1,7 +1,7 @@
 # README
 
 - 按照 github 的惯例，用README文件作为 Repo 的通用信息说明文件
-- Studymemo 是 **3j学院白老师**  的学习笔记原稿。
+- Studymemo 是 **3jschool.com白老师**  的学习笔记原稿。
 
 
 

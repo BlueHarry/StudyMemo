@@ -69,3 +69,39 @@ fatal: not a git repository (or any of the parent directories): .git
 
 
 
+## 忽略Mac的 .DS_Store 文件
+
+.DS_Store是Mac OS用来存储这个文件夹的显示属性的，被作为一种通用的有关显示设置的元数据（比如图标位置等设置）为Finder、Spotlight用。所以在不经意间就会修改这个文件。而文件共享时为了隐私关系将.DS_Store文件删除比较好，因为其中有一些信息在不经意间泄露出去。
+
+为了避免每次提交时的麻烦，可以设置让 git 忽略这个文件。
+
+### 设置全局忽略
+
+在用户home目录下创建文件 ~/.gitignore_global （放在用户home目录下，而不放在一个具体项目的目录下，是为了全局使用不被无意删除）
+
+```shell
+$ touch ~/.gitignore_global
+```
+
+在.gitignore_global 文件里添加上一行： **/.DS_Store
+
+```shell
+$ cat .gitignore_global
+**/.DS_Store
+
+$ git config --global core.excludesfile ~/.gitignore_global
+```
+
+
+
+### 设置本项目目录忽略
+
+在本项目目录下创建 .gitignore文件，在文件中添加一行 **/.DS_Store
+
+```shell
+$ cat .gitignore
+**/.DS_Store
+```
+
+
+
