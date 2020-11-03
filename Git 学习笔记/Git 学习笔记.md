@@ -180,12 +180,13 @@ nothing to commit, working tree clean
 
 第二步：编写好代码后，提交到 local repo 
 
+```shell
+zsh.$ git add .
+zsh.$ git commit -m "branch-test"
+
+# 这里没有悬念，把修改提交给了 branch-test 分支，它在 local repo 上
+
 ```
-
-
-```
-
-
 
 
 
