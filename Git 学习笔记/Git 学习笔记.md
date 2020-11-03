@@ -165,7 +165,7 @@ zsh.$ git reset --hard 7c1a757d3cb94cf35da78f190286f3387fdf7d8b # !!
 
 ### 2. git checkout 检出分支
 
-第一步：把某一个分支检出到工作区
+把某一个分支检出到工作区
 
 ```shell
 zsh.$ git branch branch-test
@@ -178,7 +178,7 @@ nothing to commit, working tree clean
 # 检出分支后就可以修改代码，通常是修改某一特定部分代码。比如，修改数据库访问模块的代码。
 ```
 
-第二步：编写好代码后，提交到 local repo 
+编写好代码后，提交到 local repo 
 
 ```shell
 zsh.$ git add .
@@ -193,19 +193,25 @@ zsh.$ git commit -m "branch-test"
 ### 3. git merge 合并分支
 
 ```shell
+zsh.$ git checkout main 			# 合并分支之前，必须先回到 main 分支
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+zsh.$ git merge branch-test		# 现在可以把 branch-test 分支合并进 main 分支了
+Updating 2dcdd59..ef83445
 
-
+zsh.$ git log
+commit ef834453b1cd2c5d30813082df90032653dd9589 (HEAD -> main, branch-test) # 注意这里，HEAD 位于两个分支的头部
 ```
-
-
-
-
 
 ### 4. git branch -d 删除分支
 
+```shell
 
-
-
+zsh.$ git branch -d branch-test 	# 合并进 main 主分支后，可以删除掉临时分支了
+Deleted branch branch-test (was ef83445).
+zsh.$ git log
+commit ef834453b1cd2c5d30813082df90032653dd9589 (HEAD -> main) # HEAD指向，只剩下 main 分支了
+```
 
 
 
