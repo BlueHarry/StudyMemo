@@ -161,9 +161,23 @@ zsh.$ git reset --hard 7c1a757d3cb94cf35da78f190286f3387fdf7d8b # !!
 
 ### 1. git branch 创建分支
 
-
+在 master 主分支 HEAD 上创建一个分支
 
 ### 2. git checkout 检出分支
+
+把某一个分支检出到工作区
+
+```shell
+zsh.$ git branch branch-test
+zsh.$ git checkout branch-test
+Switched to branch 'branch-test'
+zsh.$ git status
+On branch branch-test
+nothing to commit, working tree clean
+
+```
+
+
 
 
 
