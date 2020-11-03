@@ -161,11 +161,11 @@ zsh.$ git reset --hard 7c1a757d3cb94cf35da78f190286f3387fdf7d8b # !!
 
 ### 1. git branch 创建分支
 
-在 master 主分支 HEAD 上创建一个分支
+在 main主分支 HEAD 上创建一个分支
 
 ### 2. git checkout 检出分支
 
-把某一个分支检出到工作区
+第一步：把某一个分支检出到工作区
 
 ```shell
 zsh.$ git branch branch-test
@@ -174,6 +174,14 @@ Switched to branch 'branch-test'
 zsh.$ git status
 On branch branch-test
 nothing to commit, working tree clean
+
+# 检出分支后就可以修改代码，通常是修改某一特定部分代码。比如，修改数据库访问模块的代码。
+```
+
+第二步：编写好代码后，提交到 local repo 
+
+```
+
 
 ```
 
