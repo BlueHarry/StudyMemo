@@ -191,6 +191,13 @@ nothing to commit, working tree clean
 
 ### 3. git merge 合并分支
 
+```shell
+
+
+```
+
+
+
 
 
 ### 4. git branch -d 删除分支
