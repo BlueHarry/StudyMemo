@@ -55,9 +55,8 @@ fatal: not a git repository (or any of the parent directories): .git
 ###  1.  git status
 查看工作区（working tree）代码与入库缓存区（stage）的差别
 
-### 2.  git add
-
-把工作区的变化（changes）提交到stage缓存区
+### 2.  git add 
+把工作区的变化（changes）提交到stage缓存区，可以理解为生成了一份快照。当然标准叫法是一次change，这个词汇中文比较没有具象感，叫“切片”、“快照”比较容易理解和记住。
 
 ### 3. git commit -m '版本注释'
 
@@ -67,13 +66,128 @@ fatal: not a git repository (or any of the parent directories): .git
 
 把本地代码仓的变化推送到远端代码仓（比如，github repo）
 
+## 撤销一次错误提交 
+
+### 1.  git reset 重置
+
+如果执行了一次错误的提交（commit），希望从local repo中退回，那就要用到 reset 命令回退到前面的某一次提交“快照”，通常就是回到这次错误提交的上一次提交快照。
+
+分为所谓的软重置（--soft）和硬重置（--hard），区别在于 `git reset --soft`  不仅让local repo版本回退到以前提交的某一快照，而且会把提交的错误文件放回到 staged change区，供你修改后再次提交。而 ` git reset --hard` 让local repo版本回退到以前提交的某一快照后，彻底丢弃刚刚提交的错误文件。
+
+```shell
+
+zsh.$ vim test.txt
+zsh.$ cat test.txt
+This is a wrong commit.
+zsh.$ git add .
+zsh.$ git commit -m "wrong commit test"
+
+# 以上命令执行了一个错误提交
+
+zsh.$ git log
+commit 45922fc31db1c4fcdbedf00febb884a9049f3add (HEAD -> main)
+Author: Tony Bai <tony@TonydeMacBook-Pro.local>
+Date:   Tue Nov 3 11:57:26 2020 +0800
+
+    wrong commit test
+
+commit 7c1a757d3cb94cf35da78f190286f3387fdf7d8b (origin/main, origin/HEAD) # 注意hash
+Author: BlueHarry <harryhuang2012@gmail.com>
+Date:   Tue Nov 3 10:18:33 2020 +0800
+
+# git log 可以看出，wrong commit test 已经提交，这个快照成为 main 分支的 HEAD
+
+```
+
+```shell
+zsh.$ git reset --soft 7c1a757d3cb94cf35da78f190286f3387fdf7d8b # 回退到上次提交的快照
+zsh.$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   test.txt
+
+# 以上命令，让local repo回退到指定的以前提交的快照，而且把提交错误的文件放回了 stage change缓存区，随后可以 restore 到 working tree 进行修改。
+
+```
 
 
-## 忽略Mac的 .DS_Store 文件
+
+```shell
+zsh.$ git restore --staged test.txt
+zsh.$ vim test.txt
+zsh.$ cat test.txt
+This is a correct commit.
+zsh.$ git add .
+zsh.$ git commit -m "Correct commit"
+
+# 以上命令，对于软重置后退回的错误代码，修改后再次提交。这是日常开发过程中经常会发生的场景。
+```
+
+
+
+```shell
+zsh.$ git log
+commit d42d613ce3316e01d534683d6bb9aaf1aeff28fb (HEAD -> main)
+Author: Tony Bai <tony@TonydeMacBook-Pro.local>
+Date:   Tue Nov 3 12:01:17 2020 +0800
+
+    Correct commit
+
+commit 7c1a757d3cb94cf35da78f190286f3387fdf7d8b (origin/main, origin/HEAD) # !!
+Author: BlueHarry <harryhuang2012@gmail.com>
+Date:   Tue Nov 3 10:18:33 2020 +0800
+
+zsh.$ git reset --hard 7c1a757d3cb94cf35da78f190286f3387fdf7d8b # !!
+
+# 以上命令，用 --hard 彻底回退刚才的实验提交，放弃所有更改。通常会用到的硬重置
+# 1、像上面的练习场景，练习完成后，彻底擦除实验垃圾数据。
+# 2、如果团队开发，某个模块另外一个人已经修改，并且提交，并且合并进版本了。你做的修改已经不需要了，你就需要彻底擦除，不用 push 到 github 的团队共享代码仓了。
+```
+
+### 2. 直接覆盖
+
+如果只是为了修改一个错误，最简单粗暴的方式是提交一个正确的文件覆盖错误的文件。这个就很简单，先修改文件，然后【`git add .  ->  git commit `】，不用赘述了。就如同街边电线杆上的广告贴纸，覆盖上去就完事了。
+
+
+
+## 放弃不成功的编码（未完成。。。）
+
+日常开发会有这样一种场景，先从github上 “git pull” 下来一个版本，然后开发编码，边开发边 “ git add” 到“staged change“区。突然发现刚才乱写一通的代码根本就不对，想回到前面刚刚 ”git add“的版本。这时可以用 “git checkout ” 。
+
+## 分支
+
+### 1. git branch 创建分支
+
+
+
+### 2. git checkout 检出分支
+
+
+
+### 3. git merge 合并分支
+
+
+
+### 4. git branch -d 删除分支
+
+
+
+
+
+
+
+
+
+## 忽略 Mac 的 .DS_Store 文件
 
 .DS_Store是Mac OS用来存储这个文件夹的显示属性的，被作为一种通用的有关显示设置的元数据（比如图标位置等设置）为Finder、Spotlight用。所以在不经意间就会修改这个文件。而文件共享时为了隐私关系将.DS_Store文件删除比较好，因为其中有一些信息在不经意间泄露出去。
 
 为了避免每次提交时的麻烦，可以设置让 git 忽略这个文件。
+
+
 
 ### 设置全局忽略
 
