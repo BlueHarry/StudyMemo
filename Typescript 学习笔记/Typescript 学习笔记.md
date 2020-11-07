@@ -28,7 +28,7 @@ npm init --yes
 # npm 就会创建一个package.json 包文件
 ```
 
-
+可见，npm 是Javascript 开发项目重要的效率工具，虽然这些事情都能手工完成。
 
 
 
