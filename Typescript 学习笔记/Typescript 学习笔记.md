@@ -18,6 +18,18 @@ npm WARN deprecated tsc@1.20150623.0: you probably meant to install typescript
 
 2. 安装VSCode之类的代码编辑器。
 
+## 创建一个Javascript 应用包
+
+进入将要放置package的根目录 ，运行 ：
+
+```shell
+npm init --yes
+
+# npm 就会创建一个package.json 包文件
+```
+
+
+
 
 
 ## 数据类型
@@ -62,14 +74,78 @@ let saySomething = words => console.log(words）；
 
 
 
-# Jest 测试
+# Jest 测试工具
 
 
 
-测试组件：
+测试工具3组件：
 
 - Test Runner : 比如，Mocha
 - Assertion Library : 比如，Chai
 - Headless Browser ; 比如，Puppeteer，浏览器交互操作模仿器，主要是用于端到端（e2e）测试
 
 Jest = { Test Runner + Assertion Library }  for Javascript ，主要用于Javascript 单元测试和集成测试。
+
+## 安装 jest 开发测试环境
+
+```shell
+npm install --save-dev jest
+```
+
+jest官网：https://jestjs.io
+
+找到Docs，可以按照 Getting started 指引，学会安装和编写第一个jest测试文件。
+
+安装完之后，要把 package.json 中的 test 工具设置为 jest：
+
+```javascript
+{
+  "scripts":{
+    "test":"jest"
+  }
+}
+```
+
+
+
+## 第一个test.js
+
+官网的例子sum.js 文件是这样的：
+
+```javascript
+function sum(a,b){
+    return a + b;
+}
+module.exports = sum;
+```
+
+
+
+而 sum.test.js 文件是这样的：
+
+``` javascript
+const sum = require('./sum');
+
+test('adds 1 + 2', () => {
+    expect(sum(1,2)).toBe(3);
+});
+```
+
+运行命令官网说是 npm run test，实际上好像 npm test 才对：
+
+``` shell
+zsh.$ npm test
+
+> jest-learn@1.0.0 test /Users/tony/jProject/jest-learn
+> jest
+
+ PASS  ./sum.test.js
+  ✓ adds 1 + 2 (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        0.761 s, estimated 1 s
+Ran all test suites.
+```
+
