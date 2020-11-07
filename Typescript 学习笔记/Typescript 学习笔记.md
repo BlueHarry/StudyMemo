@@ -108,7 +108,7 @@ jest官网：https://jestjs.io
 
 
 
-## 第一个test.js
+## 第一个test.js 或者 spec.js 
 
 官网的例子sum.js 文件是这样的：
 
@@ -121,7 +121,7 @@ module.exports = sum;
 
 
 
-而 sum.test.js 文件是这样的：
+而 sum.test.js 或者 sum.spec.js文件是这样的：
 
 ``` javascript
 const sum = require('./sum');
@@ -131,11 +131,17 @@ test('adds 1 + 2', () => {
 });
 ```
 
+
+
+## 运行测试文件
+
 运行命令官网说是 npm run test，实际上好像 npm test 才对：
 
 ``` shell
 zsh.$ npm test
 
+# 这个命令将运行所有 test.js 和 spec.js 文件
+# 通常运行成功后的输出如下：
 > jest-learn@1.0.0 test /Users/tony/jProject/jest-learn
 > jest
 
@@ -147,5 +153,11 @@ Tests:       1 passed, 1 total
 Snapshots:   0 total
 Time:        0.761 s, estimated 1 s
 Ran all test suites.
+```
+
+也可以只运行其中一个 test,js 或 spec.ts 文件：
+
+``` shell
+zsh.$ npm test -t sum.spec.js
 ```
 
