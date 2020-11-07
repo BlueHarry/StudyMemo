@@ -1,6 +1,6 @@
 # Typescript 学习笔记
 
-
+# Typescript essential
 
 ## 环境安装
 
@@ -60,3 +60,16 @@ let saySomething = words => console.log(words）；
 
 上方代码：以上代码中几个函数是等价的。
 
+
+
+# Jest 测试
+
+
+
+测试组件：
+
+- Test Runner : 比如，Mocha
+- Assertion Library : 比如，Chai
+- Headless Browser ; 比如，Puppeteer，浏览器交互操作模仿器，主要是用于端到端（e2e）测试
+
+Jest = { Test Runner + Assertion Library }  for Javascript ，主要用于Javascript 单元测试和集成测试。
