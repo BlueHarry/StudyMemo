@@ -155,7 +155,7 @@ Time:        0.761 s, estimated 1 s
 Ran all test suites.
 ```
 
-也可以只运行其中一个 test,js 或 spec.ts 文件：
+也可以只运行指定的 test.js 或 spec.ts 文件：
 
 ``` shell
 zsh.$ npm test -t sum.spec.js
