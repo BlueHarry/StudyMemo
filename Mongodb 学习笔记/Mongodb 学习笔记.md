@@ -50,5 +50,40 @@
 
    
 
-3. 
 
+3. 用 MQL （Mongodb Query Language）来查询出文档 
+
+```shell
+db.grades.find({"$and": [{"student_id":{"$gt":25}},{"student_id":{"$lt":100}}]})
+
+# 或者，更简洁的方式：
+
+db.grades.find({"student_id": {"$gt":25,"$lt":100}})
+
+```
+
+- db ： 代表当前 use 的 database
+- grades ：代表当前db里面的 grades 集合（collection）
+- "$gt"：是一个比较运算符
+- "$and"：是一个逻辑运算符
+
+
+
+4. Aggregation syntax 
+
+```shell
+{"$expr": {
+					"$and": [
+									{"$gt":["$tripduration", 1200]},
+									{"$eq":["$end station id", "$start station id"]}
+									]
+					}
+
+}
+
+```
+
+这是Mongodb 官方培训课程的一个查询例子，看明白了基本就算会了。
+
+- "$tripduration"：代表文档中Field tripduration的值
+- "$expr"：统领一个查询条件表达式
