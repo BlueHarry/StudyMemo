@@ -12,9 +12,9 @@
 此处必须上图了，否则说不清楚。
 
 - 对于程序员来说，你要面对3分拷贝：Working Copy，Local Repository 和 Remote Repository。
--  Working Copy。也叫working tree，就是你正在编码的一组文件，我们就叫它工作拷贝吧。比如用Visual Studio Code读写的程序代码。你写呀写呀，改呀改的那些代码文件。实际上，在VSCode上做修改（change）的时候，changes分成两个状态，changes 和 staged changes。commit之前先要把changes “+”到 staged changes 区域，才能 commit到 Local Repository。
-- Local Repository，本地代码仓库。你如果从来没有用过任何版本管理系统（VCS），会觉得这玩意儿有点诡异。我正在编写的代码文件，存储在我的本地磁盘上，是持久化的存储呀，难道不就是存储代码的仓库吗？你一脸困惑地发问。是的，你本地文件系统上的工作拷贝（Working Copy）一般不会丢失，可是会被你不断地修改，包括错误地修改。安装了Git这类版本管理系统之后，你可以定期“提交（commit）”你的成果到本地代码仓库封存起来，贴上标签，说这是某某版本，Version x.y.z。
-- Remote Repository，远程代码仓库。它要负责管理整个项目开发团队提交上来的所有代码，是一个项目的公共代码仓库。显然它除了具有本地代码仓库的版本控制功能外，还必须处理好一个开发团队内各个程序员提交代码时的冲突问题。如果两个程序员要同时修改同一个文件怎么办？必须有一种控制机制，这个当然一点都不难理解。一个项目的所有程序员都必须基于同一套版本文件进行修改，在你进入一个项目开始开发之前，你必须先把远程的版本文件 Pull 到本地代码仓库，基于这个共同的基础来开发新功能走向更加美好的未来。
+-  Working Copy。也叫working tree，就是你正在编码的一组文件，我们就叫它工作拷贝吧。比如用Visual Studio Code读写的程序代码。你写呀写呀，改呀改的那些代码文件。实际上，在VSCode上做修改（change）的时候，changes分成两个状态，changes 和 staged changes。commit之前先要把changes “+”（`git add .`）到 staged changes 区域，才能 commit到 Local Repository。
+- Local Repository，本地代码仓库。你如果从来没有用过任何版本管理系统（VCS），会觉得这玩意儿有点诡异。我正在编写的代码文件，存储在我的本地磁盘上，是持久化的存储呀，难道不就是存储代码的仓库吗？你一脸困惑地发问。是的，你本地文件系统上的工作拷贝（Working Copy）一般不会丢失，可是会被你不断地修改，包括错误地修改。安装了Git这类版本管理系统之后，你可以定期“提交（commit）”你的成果到本地代码仓库封存起来，贴上标签，说这是某某版本，Version x.y.z。这样是可以把封存的版本从正在疯狂编码的 Working Copy 分离出来保护，必要的时候你也可以按版本回退操作。
+- Remote Repository，远程代码仓库，通常在github之类的远程服务器上。它要负责管理整个项目开发团队提交上来的所有代码，是一个项目的公共代码仓库。显然它除了具有本地代码仓库的版本控制功能外，还必须处理好一个开发团队内各个程序员提交代码时的冲突问题。如果两个程序员要同时修改同一个文件怎么办？必须有一种控制机制，这个当然一点都不难理解。一个项目的所有程序员都必须基于同一套版本文件进行修改，在你进入一个项目开始开发之前，你必须先把远程的版本文件 Pull 到本地代码仓库，基于这个共同的基础来开发新功能形成新版本。
 - commit 和 push。你写好代码之后，需要两步才能把代码提交到远程项目代码仓库上去。第一步，你要把刚写好的代码“提交（commit）”到本地代码仓库（local Repository）；第二部，你要 push 你的工作成果到远程项目代码仓库（Remote Repository）。
 - 
 
@@ -25,12 +25,43 @@
 
 ## 创建代码仓
 
-### 1.  创建代码仓 git init 和 git clone
-初始化创建 Local Repository，有两种方法：
-1. git init 将一个本地文件目录初始化为一个版本仓库。初始化以后这个目录的所有文件就开始受到git的版本控制。说得更通俗一点，就是git将会监控和记录下这个目录下所有文件的改变历史。
+### 1.  创建代码仓 git init ，fork 和 git clone
 
-2. git clone 从一个远程版本库客隆，在本地生成一个一摸一样的版本仓库文件目录。
-   例如：git  clone https://github.com/3jschool/homepage
+git clone 从github克隆下来：
+
+```shell
+# 通常是先在 GitHub 上Fork一个repo到自己repo上，然后clone下来
+
+git  clone  https://github.com/3jschool/odoo
+
+# 以上命令从github上面克隆下来一个现成的版本仓库
+```
+
+### ** 讨厌的Mac OS钥匙串管理问题：
+
+因为我使用了两个github账号，所以由钥匙串自动提供密码的时候容易出现混乱，系统只保存了一套账号密码。解决办法是每次换GitHub账号操作的时候，手动修改钥匙串账号密码。
+
+![钥匙串管理](钥匙串管理.png)
+
+
+
+
+
+git init 本地创建，再git push 到GitHub 的一个同名空代码库上去。必须注意的是，在github上创建同名空代码库时，不要选择 Initialize this repository with a README ，否则就不是“空壳”了，git push时就要合并分支操作了。
+
+```shell
+git init
+# 以上命令把本地文件目录初始化为一个本地的代码仓库
+
+git push
+# 以上命令将本地代码仓库推送到一个同名的空代码仓库上
+```
+
+
+
+
+
+1. git init 将一个本地文件目录初始化为一个版本仓库。初始化以后这个目录的所有文件就开始受到git的版本控制。说得更通俗一点，就是git将会监控和记录下这个目录下所有文件的改变历史。如果要想放到github上去，就需要push上去。
 
    
 
@@ -151,7 +182,8 @@ zsh.$ git reset --hard 7c1a757d3cb94cf35da78f190286f3387fdf7d8b # !!
 
 如果只是为了修改一个错误，最简单粗暴的方式是提交一个正确的文件覆盖错误的文件。这个就很简单，先修改文件，然后【`git add .  ->  git commit `】，不用赘述了。就如同街边电线杆上的广告贴纸，覆盖上去就完事了。
 
-
+### 3. 修补基线内容i
+修改文件后，通过 	git commit --amend 命令可以修改最新基线的内容。（有时间再添加操作实例，用github的时候不适合用这个命令，因为会直接修改 github上的基线）
 
 ## 放弃不成功的编码（未完成。。。）
 
@@ -219,9 +251,9 @@ commit ef834453b1cd2c5d30813082df90032653dd9589 (HEAD -> main) # HEAD指向，�
 
 ## 忽略 Mac 的 .DS_Store 文件
 
-.DS_Store是Mac OS用来存储这个文件夹的显示属性的，被作为一种通用的有关显示设置的元数据（比如图标位置等设置）为Finder、Spotlight用。
+.DS_Store是Mac OS用来存储这个文件夹的显示属性的，被作为一种通用的有关显示设置的元数据（比如图标位置等设置）为Finder、Spotlight用。所以在不经意间就会修改这个文件。而文件共享时为了隐私关系将.DS_Store文件删除比较好，因为其中有一些信息在不经意间泄露出去。
 
-如果你对这些设置进行了改动（通常是在GUI界面下做了一些设置），系统就会自动修改 .DS_Store 里面的信息。git 会认为你对工作区的代码或文档做了修改，而你实际不知情，没有及时提交。这样就导致你本地的 branch main 和 github上的 original/main 版本不一致。为了避免麻烦，可以设置让 git 忽略这个文件，也就是把这个文件排除在版本管理之外。
+为了避免每次提交时的麻烦，可以设置让 git 忽略这个文件。
 
 
 
@@ -239,7 +271,7 @@ $ touch ~/.gitignore_global
 $ cat .gitignore_global
 **/.DS_Store
 
-$ git config --global core.excludesfile ~/.gitignore_global
+$ git config --global core.excludesfile ~/.gitignore_global # 不要忘记执行这个命令了
 ```
 
 
@@ -254,4 +286,10 @@ $ cat .gitignore
 ```
 
 
+
+### 常用GUI工具
+
+1. sourcetree , www.sourcetreeapp.com
+2. git 官方desktop工具
+3.  
 
