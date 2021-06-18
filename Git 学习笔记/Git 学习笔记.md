@@ -55,8 +55,8 @@ git  clone  https://github.com/3jschool/odoo
 
 - ```sh
   # 好吧，配置git客户端参数
-  git config --global user.name "BlueHarry"
-  git config --gblobal user.email "harryhuang2012@gmail.com"
+  git config --global user.name "BlueH--"
+  git config --gblobal user.email "harryhuang20--@gmail.com"
   
   # 然后，看配置得怎样了？
   git config --list
@@ -67,7 +67,7 @@ git  clone  https://github.com/3jschool/odoo
   
   ```
 
-- 现在可以 git clone 了吧？还是不通。于是手工配置密码钥匙串：BlueHarry/Judy0215，但是依然克隆不下来 github上的 repo!
+- 现在可以 git clone 了吧？还是不通。
 
 - 我发疯了，最后一招：重启电脑。
 
@@ -82,9 +82,9 @@ git  clone  https://github.com/3jschool/odoo
 - ```sh
   git config --list
   
-  credential.helper=osxkeychain
-  user.name=BlueHarry
-  user.email=harryhuang2012@gmail.com
+  credential.helper=osxkeychain # 这条配置是祸根！！！
+  user.name=BlueHarry # 这两条配置也可以不要，
+  user.email=harryhuang2012@gmail.com # 但是干什么都要输你的github用户名和密码
   core.repositoryformatversion=0
   core.filemode=true
   core.bare=false
@@ -98,7 +98,48 @@ git  clone  https://github.com/3jschool/odoo
   blueharry@BlueHarrydeMacBook-Pro StudyMemo
   ```
 
-- 
+- 总算 git clone 下来了 repo，可是修改文件后 git push 报访问权限错误。还是 credential.helper=osxkeychain 的问题！Mac的钥匙串管理很是麻烦，于是一怒之下，我决定干掉这行配置。
+
+- ```shell
+  git config --show-origin --get credential.helper # 找出配置所在的文件
+  file:/usr/local/etc/gitconfig	osxkeychain
+  
+  
+  vim /usr/local/etc/gitconfig
+  [credential]
+  	helper = osxkeychain  # 删除这一行配置!
+  	
+  ## 额外的收获：
+  	
+  git config --show-origin --get user.name   # 可以用这条命令找到任何配置项所在的配置文件！！！好命令呀  
+  file:/Users/blueharry/.gitconfig	BlueHarry
+  
+  git config --show-origin --get remote.origin.url # 看看远端url在哪个配置文件里
+  file:.git/config	https://github.com/BlueHarry/StudyMemo.git # 啊哈，在这里呢
+  
+  cat .git/config # 看看这个文件了都有啥，太有用了！
+  [core]
+  	repositoryformatversion = 0
+  	filemode = true
+  	bare = false
+  	logallrefupdates = true
+  	ignorecase = true
+  	precomposeunicode = true
+  [remote "origin"]
+  	url = https://github.com/BlueHarry/StudyMemo.git
+  	fetch = +refs/heads/*:refs/remotes/origin/*
+  [branch "main"]
+  	remote = origin
+  	merge = refs/heads/main
+  
+  ## 至此，三个跟 git 相关的配置文件露出了水面
+  /usr/local/etc/gitconfig # 全局的 (global)
+  /Users/blueharry/.gitconfig # 本 Mac OS用户blueharry的 (local)
+  /Users/blueharry/StudyMemo/.git/config # 本 git 仓库StudyMemo的 (local)
+  
+  ```
+
+- 爽了!  每次 git push 这类访问远端repo就会提示输用户名和密码，太好了，宁可每次输用户名和密码也不要老是莫名其妙报错。 
 
 
 
