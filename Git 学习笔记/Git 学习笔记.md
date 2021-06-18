@@ -43,7 +43,41 @@ git  clone  https://github.com/3jschool/odoo
 
 ![钥匙串管理](钥匙串管理.png)
 
+我在新安装的Mac上第一次使用 git 受尽了折磨：
 
+-  不知道 git 的版本够不够新，于是要安装新 git
+
+- 要安装新 Git ，先安装 Homebrew
+
+- 安装Homebrew也不容易，中间经常中断。先要安装Xcode命令行组件，然后还要到 github上下载 Homebrew
+
+- 死循环呀！我就是因为搞不定 github 才用homebrew呀
+
+- ```sh
+  # 好吧，配置git客户端参数
+  git config --global user.name "BlueHarry"
+  git config --gblobal user.email "harryhuang2012@gmail.com"
+  
+  # 然后，看配置得怎样了？
+  git config --list
+  
+  credential.helper=osxkeychain
+  user.name=BlueHarry
+  user.email=harryhuang2012@gmail.com
+  
+  ```
+
+- 现在可以 git clone 了吧？还是不通。于是手工配置密码钥匙串：BlueHarry/Judy0215，但是依然克隆不下来 github上的 repo!
+
+- 我发疯了，最后一招：重启电脑。
+
+- ```sh
+  git clone https://github.com/BlueHarry/StudyMemo.git
+  
+  # Bingo，奇迹一般地成功了！
+  ```
+
+- 
 
 
 
