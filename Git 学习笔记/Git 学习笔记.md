@@ -77,6 +77,27 @@ git  clone  https://github.com/3jschool/odoo
   # Bingo，奇迹一般地成功了！
   ```
 
+- 克隆完以后，git配置变成这样的了：
+
+- ```sh
+  git config --list
+  
+  credential.helper=osxkeychain
+  user.name=BlueHarry
+  user.email=harryhuang2012@gmail.com
+  core.repositoryformatversion=0
+  core.filemode=true
+  core.bare=false
+  core.logallrefupdates=true
+  core.ignorecase=true
+  core.precomposeunicode=true
+  remote.origin.url=https://github.com/BlueHarry/StudyMemo.git #加上了远端url
+  remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+  branch.main.remote=origin
+  branch.main.merge=refs/heads/main
+  blueharry@BlueHarrydeMacBook-Pro StudyMemo
+  ```
+
 - 
 
 
