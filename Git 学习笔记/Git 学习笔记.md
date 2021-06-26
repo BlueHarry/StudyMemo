@@ -30,7 +30,7 @@
 git clone 从github克隆下来：
 
 ```shell
-# 通常是先在 GitHub 上Fork一个repo到自己repo上，然后clone下来
+# 通常是先在 GitHub 上Fork一个repo到自己repositories上，然后clone下来
 
 git  clone  https://github.com/3jschool/odoo
 
@@ -55,15 +55,15 @@ git  clone  https://github.com/3jschool/odoo
 
 - ```sh
   # 好吧，配置git客户端参数
-  git config --global user.name "BlueH--"
+  git config --global user.name "BlueH----"
   git config --gblobal user.email "harryhuang20--@gmail.com"
   
   # 然后，看配置得怎样了？
   git config --list
   
   credential.helper=osxkeychain
-  user.name=BlueHarry
-  user.email=harryhuang2012@gmail.com
+  user.name=BlueH----
+  user.email=harryhuang20--@gmail.com
   
   ```
 
@@ -117,7 +117,7 @@ git  clone  https://github.com/3jschool/odoo
   git config --show-origin --get remote.origin.url # 看看远端url在哪个配置文件里
   file:.git/config	https://github.com/BlueHarry/StudyMemo.git # 啊哈，在这里呢
   
-  cat .git/config # 看看这个文件了都有啥，太有用了！
+  cat .git/config # 看看这个文件里都有啥，太有用了！
   [core]
   	repositoryformatversion = 0
   	filemode = true
@@ -133,9 +133,9 @@ git  clone  https://github.com/3jschool/odoo
   	merge = refs/heads/main
   
   ## 至此，三个跟 git 相关的配置文件露出了水面
-  /usr/local/etc/gitconfig # 全局的 (global)
-  /Users/blueharry/.gitconfig # 本 Mac OS用户blueharry的 (local)
-  /Users/blueharry/StudyMemo/.git/config # 本 git 仓库StudyMemo的 (local)
+  /usr/local/etc/gitconfig # 全局的 (global)，比如，Mac OS的钥匙串管理
+  /Users/blueharry/.gitconfig # 本 Mac OS用户blueharry的 (local)，比如，本用户的用户名和邮件地址
+  /Users/blueharry/StudyMemo/.git/config # 本 git 仓库StudyMemo的 (local)，比如，本Repo的远端URL
   
   ```
 
