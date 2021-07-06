@@ -1,6 +1,8 @@
 # Odoo 学习笔记
 
-# 安装开发环境
+# 开发
+
+## 安装开发环境
 
 1. 在一台专用的Mac上安装开发环境，参照odoo文档的 source install 指南
 
@@ -71,11 +73,51 @@
 
 
 
+## 启动odoo
+
+1. 命令行启动是这样的：
+
+```sh
+./odoo-bin --addons-path="addons/,../enterprise/" -d rd-demo
+```
+
+2. 大部分的启动选项可以通过配置文件加载
+
+   ```python
+   # 配置文件 config/odoo.conf 如下
+   [options]
+   addons_path = addons,../enterprise
+   
+   ```
+
+   就可以这样启动了：
+
+   ```sh
+   ./odoo-bin -c config/odoo.conf -d rd-demo
+   ```
+
+   
+
+   ## 管理Database
+
+   管理页面URL：192.168.64.2:8069/web/database/manager
+
+   
+
 
 
 # 业务功能模块
 
 
+
+
+## 权限管理 Access Rights
+
+- 安装一个App时，系统会自动创建一些用户组（user group），用于控制用户访问权限。比如， sales/ user: all documents
+- 创建一个user用户时，加入到这些用户组，就获得了对这个App应用的相应访问权限。
+- 所以，对一个app应用的访问权限设置是从这个应用的用户组设置开始的，接着把user加入这些用户组就可以了。而且，我们不是只能使用这些由系统自动创建的 user group，我们可以根据权限管理需要自己创建独特的user group。
+- 但是，自己创建一个用户组，设置其特殊权限是一件很繁琐的事情。涉及到哪些功能菜单Menu有权限、哪些Views视图有权限、对里面各种Model对象（比如，合同）的CRUD权限、对哪些Model的哪些记录的权限（record rules），需要花很多精力来设计和设置。
+- 用户组之间存在继承关系。越在金字塔顶端的用户组其权限越小，odoo用户组金字塔最顶端的group是 internal user，几乎就没啥权限可言。
 
 
 
