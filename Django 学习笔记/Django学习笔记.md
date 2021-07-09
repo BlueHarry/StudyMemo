@@ -112,3 +112,22 @@ Password (again):
 ```
 
 2. 
+
+
+
+## Python manage.py 命令
+
+
+
+### ~ sqlmigrate 语句
+
+```python
+# 查看 migration 生成的SQL语句，用于为一个 Class Model在DB中创建 table
+# 其实建表语句非常简单，那为什么要一个ORM层呢？直接嵌入SQL语句不好吗？主要的原因我想是想和不同的数据库SQL语句解偶。所以，Django程序员只需要会使用 Models.Model模块的一些函数就可以了，让ORM层自动适应不同的数据库，生成相应的SQL语句。
+
+python manage.py sqlmigrate blog 001 	# blog是例子应用名称，001代表自动产生的 001_initial.py
+
+```
+
+
+
